@@ -5,7 +5,6 @@ SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 DEBUG = False
 ALLOWED_HOSTS = [
     'localhost',
-    'django-env.vhkawew7qf.us-west-2.elasticbeanstalk.com',
     'rehook.punihaole.com',
 ]
 

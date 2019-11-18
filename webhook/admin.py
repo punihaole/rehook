@@ -5,4 +5,4 @@ from webhook.models import Webhook
 
 @admin.register(Webhook)
 class WebookAdmin(admin.ModelAdmin):
-    pass
+    readonly_fields = ('date', 'rehook_id', )
