@@ -25,5 +25,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('webhook.urls')),
     url(r'braintree', GenericWebhookHandler.as_view()),
+    url(r'stripe', GenericWebhookHandler.as_view()),
     url(r'test/?', GenericWebhookHandler.as_view()),
 ]
