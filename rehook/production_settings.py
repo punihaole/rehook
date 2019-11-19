@@ -6,6 +6,7 @@ DEBUG = False
 ALLOWED_HOSTS = [
     'localhost',
     'django-rehook.ydg83rmkjv.us-west-2.elasticbeanstalk.com',
+    'dev-webhooks.rocketreach.co',
     'rehook.punihaole.com',
 ]
 
