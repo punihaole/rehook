@@ -18,6 +18,7 @@ class WebhookSerializer(serializers.ModelSerializer):
             'remote_host',
             'headers',
             'encoding',
-            'post_data',
+            'data',
+            'body',
             'date',
         ]

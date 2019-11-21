@@ -16,9 +16,13 @@ class Webhook(models.Model):
     remote_host = models.CharField(max_length=255, null=True, blank=True)
     headers = HStoreField()
     encoding = models.CharField(max_length=255, null=True, blank=True)
-    post_data = JSONField(null=True)
+    data = JSONField(null=True)
+    body = models.TextField(null=True, blank=True)
     date = models.DateTimeField(auto_now=True, db_index=True)
     rehook_id = Base36IntegerField(prefix='wh_', db_index=True, unique=True, null=False, blank=False)
+
+    class Meta:
+        ordering = ('-date', )
 
     @property
     def user_agent(self):

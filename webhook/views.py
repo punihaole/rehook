@@ -10,6 +10,10 @@ from .models import Webhook
 
 
 class GenericWebhookHandler(APIView):
+    def dispatch(self, request, *args, **kwargs):
+        request.raw_body = request.body
+        return super().dispatch(request, *args, **kwargs)
+
     def handler(self, request, *args, **kwargs):
         data = dict(request.POST.lists())
         if not data:
@@ -23,7 +27,8 @@ class GenericWebhookHandler(APIView):
             remote_host=request.remote_host,
             headers=dict(request.headers),
             encoding=request.encoding,
-            post_data=data,
+            data=data,
+            body=request.raw_body,
         )
         return Response(data={'detail': webhook.rehook_id}, status=status.HTTP_201_CREATED)
 
