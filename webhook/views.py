@@ -3,6 +3,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.pagination import PageNumberPagination
 
+from django_filters.rest_framework import DjangoFilterBackend
+
 from webhook.serializers import WebhookSerializer
 from .models import Webhook
 
@@ -52,3 +54,5 @@ class WebhookViewSet(viewsets.ModelViewSet):
     serializer_class = WebhookSerializer
     lookup_field = 'rehook_id'
     pagination_class = StandardResultsSetPagination
+    filter_backends = [DjangoFilterBackend, ]
+    filterset_fields = ['path', 'remote_address', 'date', ]
