@@ -11,13 +11,19 @@ from .models import Webhook
 
 class GenericWebhookHandler(APIView):
     def dispatch(self, request, *args, **kwargs):
-        request.raw_body = request.body
+        request._body = request.body
         return super().dispatch(request, *args, **kwargs)
 
     def handler(self, request, *args, **kwargs):
         data = dict(request.POST.lists())
         if not data:
             data = request.data
+        body = request._body
+        if isinstance(body, bytes):
+            try:
+                body = body.decode('utf-8')
+            except UnicodeDecodeError:
+                body = ''
         webhook = Webhook.objects.create(
             scheme=request.remote_scheme,
             path=request.path,
@@ -28,7 +34,8 @@ class GenericWebhookHandler(APIView):
             headers=dict(request.headers),
             encoding=request.encoding,
             data=data,
-            body=request.raw_body,
+            body=body,
+            body_raw=request._body,
         )
         return Response(data={'detail': webhook.rehook_id}, status=status.HTTP_201_CREATED)
 
