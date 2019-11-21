@@ -29,4 +29,7 @@ class WebhookSerializer(serializers.ModelSerializer):
         ]
 
     def get_body_base64(self, instance):
-        return base64.b64encode(instance.body_raw).decode('utf-8')
+        try:
+            return base64.b64encode(instance.body_raw).decode('utf-8')
+        except TypeError:
+            return None
