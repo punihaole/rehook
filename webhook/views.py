@@ -1,6 +1,7 @@
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.pagination import PageNumberPagination
 
 from webhook.serializers import WebhookSerializer
 from .models import Webhook
@@ -40,7 +41,14 @@ class GenericWebhookHandler(APIView):
         return self.handler(request, *args, **kwargs)
 
 
+class StandardResultsSetPagination(PageNumberPagination):
+    page_size = 10
+    page_size_query_param = 'page_size'
+    max_page_size = 100
+
+
 class WebhookViewSet(viewsets.ModelViewSet):
     queryset = Webhook.objects.all()
     serializer_class = WebhookSerializer
     lookup_field = 'rehook_id'
+    pagination_class = StandardResultsSetPagination
