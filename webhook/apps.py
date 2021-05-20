@@ -2,5 +2,6 @@ from django.apps import AppConfig
 
 
 class WebhookAppConfig(AppConfig):
-    name = 'Webhook'
+    name = 'webhook'
     verbose_name = 'Webhook'
+

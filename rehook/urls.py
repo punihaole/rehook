@@ -27,4 +27,5 @@ urlpatterns = [
     url(r'braintree', GenericWebhookHandler.as_view()),
     url(r'stripe', GenericWebhookHandler.as_view()),
     url(r'test/?', GenericWebhookHandler.as_view()),
+    url(r'recurly/?$', GenericWebhookHandler.as_view()),
 ]

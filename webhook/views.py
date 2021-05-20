@@ -10,6 +10,9 @@ from .models import Webhook
 
 
 class GenericWebhookHandler(APIView):
+    permission_classes = []
+    authentication_classes = []
+
     def dispatch(self, request, *args, **kwargs):
         request._body = request.body
         return super().dispatch(request, *args, **kwargs)

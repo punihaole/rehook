@@ -1,6 +1,7 @@
 import hashlib
 
-from django.contrib.postgres.fields import HStoreField, JSONField
+from django.contrib.postgres.fields import HStoreField
+from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
 from django.utils import timezone
 
@@ -8,6 +9,7 @@ from .fields import Base36IntegerField
 
 
 class Webhook(models.Model):
+    id = models.AutoField(primary_key=True)
     scheme = models.CharField(max_length=8, null=True, blank=True)
     path = models.CharField(max_length=255, null=False, blank=False)
     method = models.CharField(max_length=8, null=True, blank=True)
@@ -16,7 +18,7 @@ class Webhook(models.Model):
     remote_host = models.CharField(max_length=255, null=True, blank=True)
     headers = HStoreField()
     encoding = models.CharField(max_length=255, null=True, blank=True)
-    data = JSONField(null=True)
+    data = models.JSONField(null=True, encoder=DjangoJSONEncoder)
     body = models.TextField(null=True, blank=True)
     body_raw = models.BinaryField(null=True, blank=True)
     date = models.DateTimeField(auto_now=True, db_index=True)
