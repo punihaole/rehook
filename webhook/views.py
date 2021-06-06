@@ -1,3 +1,5 @@
+import logging
+
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -7,6 +9,9 @@ from django_filters.rest_framework import DjangoFilterBackend
 
 from webhook.serializers import WebhookSerializer
 from .models import Webhook
+
+
+logger = logging.getLogger('rehook.webhooks')
 
 
 class GenericWebhookHandler(APIView):
@@ -40,6 +45,7 @@ class GenericWebhookHandler(APIView):
             body=body,
             body_raw=request._body,
         )
+        logger.info(f'Created webhook {webhook}.')
         return Response(data={'detail': webhook.rehook_id}, status=status.HTTP_201_CREATED)
 
     def get(self, request, *args, **kwargs):

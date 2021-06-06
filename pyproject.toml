@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "rehook"
-version = "0.2.1"
+version = "0.2.2"
 description = ""
 authors = ["Tom Punihaole <tom.punihaole@gmail.com>"]
 
@@ -11,6 +11,7 @@ djangorestframework = "*"
 psycopg2-binary = "*"
 django-filter = "*"
 djangorestframework-xml = "*"
+awsebcli = "^3.19.4"
 
 [tool.poetry.dev-dependencies]
 awsebcli = "*"

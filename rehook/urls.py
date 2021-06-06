@@ -15,17 +15,15 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, re_path, include
 
 from webhook.views import GenericWebhookHandler
-from .views import HomePageView
+from . import views
 
 urlpatterns = [
-    path('', HomePageView.as_view(), name='home'),
+    path('', views.HomePageView.as_view(), name='home'),
+    url('api/health', views.APIHealthView.as_view()),
     path('admin/', admin.site.urls),
     path('', include('webhook.urls')),
-    url(r'braintree', GenericWebhookHandler.as_view()),
-    url(r'stripe', GenericWebhookHandler.as_view()),
-    url(r'test/?', GenericWebhookHandler.as_view()),
-    url(r'recurly/?$', GenericWebhookHandler.as_view()),
+    re_path('.*', GenericWebhookHandler.as_view()),
 ]
